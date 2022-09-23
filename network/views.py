@@ -158,13 +158,17 @@ def following(request):
         for extractList in followings:
             for unit in extractList.who.all():
                 tempPost = Post.objects.filter(author = unit)
-                postList.append(tempPost)
-                followingUserList.append(unit.username)
-        posts = postList[0]
-        for unit in postList:
-            if unit != unit[0]:
-                posts = posts|unit
-        posts = posts.order_by('-timestamp')
+                if tempPost:
+                    postList.append(tempPost)
+                    followingUserList.append(unit.username)
+        if len(postList) > 0:
+            posts = postList[0]
+            for unit in postList:
+                if unit != unit[0]:
+                    posts = posts|unit
+            posts = posts.order_by('-timestamp')
+        else:
+            posts = []
     else:
         posts = []
 
