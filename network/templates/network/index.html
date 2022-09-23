@@ -12,7 +12,7 @@
             {% endif %}
         {% endif %}
         {% for post in page_obj %}
-            <div class="comment">
+            <div class="comment comment-{{post.id}}">
                 <div class="d-flex flex-row align-items-center flexgap margbot5">
                     <a class="linkForUser frame" href="{% url 'profile' post.author %}"> {{ post.author }} </a>
                     {% if user.is_authenticated %}

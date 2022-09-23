@@ -112,8 +112,11 @@ function confirmPost(button) {
             button.style.display = 'block'
         });
         const postArea = document.querySelector(`.postArea-${postID}`)
-        postArea.style.display = 'block'
-        postArea.innerText = redactedText.value
+        if (redactedText.value.length == 0)
+            removeOld(`.comment-${postID}`)
+        else
+            postArea.style.display = 'block'
+            postArea.innerText = redactedText.value
     })
 }
 

@@ -169,7 +169,7 @@ def following(request):
         posts = []
 
     forrange = math.ceil(len(posts)/N)+1
-    paginator = Paginator(posts, N) # Show 25 contacts per page.
+    paginator = Paginator(posts, N)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -230,7 +230,10 @@ def editpost(request, post_id):
         data = json.loads(request.body)
         body = data.get("body", "")
         post.textarea = body
-        post.save()
+        if len(post.textarea) == 0:
+            post.delete()
+        else:
+            post.save()
         return HttpResponse(status=204)
 
 #########################################################################
